@@ -12,6 +12,28 @@ html {
   color: #ffffff;
 }
 
+h1 {
+  font-family: 'Mouse Memoirs';
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h2 + * {
+  margin-top: 6px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+p a {
+  text-decoration: underline;
+}
+
 body {
   display: grid;
   grid-template-rows: 1fr;
@@ -34,6 +56,11 @@ aside {
   background-color: #111111;
   overflow-y: auto;
 }
+
+aside > * + * {
+  margin-top: 24px;
+}
+
 
 @font-face {
   font-family: 'Mouse Memoirs';
