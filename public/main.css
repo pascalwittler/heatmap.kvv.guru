@@ -1,3 +1,16 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Assistant';
+  font-size: 16px;
+  color: #ffffff;
+}
 
 @font-face {
   font-family: 'Mouse Memoirs';
