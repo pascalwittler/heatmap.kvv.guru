@@ -12,6 +12,29 @@ html {
   color: #ffffff;
 }
 
+body {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    'aside main';
+  width: 100vw;
+  height: 100vh;
+  background-color: #222222;
+  overflow: hidden;
+}
+
+main {
+  grid-area: main;
+}
+
+aside {
+  grid-area: aside;
+  padding: 12px 18px;
+  background-color: #111111;
+  overflow-y: auto;
+}
+
 @font-face {
   font-family: 'Mouse Memoirs';
   font-style: normal;
