@@ -20,7 +20,7 @@ function get_csv_data(string $file_path): array
         }
 
         if (empty($keys)) {
-            $keys = str_getcsv($line);
+            $keys = str_getcsv(str_replace("﻿", '', $line));
             continue;
         }
 
