@@ -20,6 +20,16 @@ function drawStop(x, y, size, color = '#ffffff') {
   context.fill();
 }
 
+async function drawStops(stops, dimensions) {
+  const lonToX = (lon) => ((lon - dimensions.lon.min) / (dimensions.lon.max - dimensions.lon.min));
+  const latToY = (lat) => ((lat - dimensions.lat.min) / (dimensions.lat.max - dimensions.lat.min));
+  const frequency = (departures) => ((departures - dimensions.departures.min) / (dimensions.departures.max - dimensions.departures.min));
+
+  stops.forEach((stop) => {
+    drawStop(lonToX(stop.lon), latToY(stop.lat), frequency(stop.departures));
+  });
+}
+
 async function initialize() {
   const data = await getData();
 }
