@@ -39,6 +39,17 @@ function get_csv_data(string $file_path): array
     return $csv_data;
 }
 
+function write_data_json(string $file_path, array $stops, array $dimensions)
+{
+    file_put_contents(
+        $file_path,
+        json_encode([
+            'stops' => array_values($stops),
+            'dimensions' => $dimensions,
+        ])
+    );
+}
+
 function calculate_dimensions(array $stops)
 {
     return [
@@ -93,6 +104,8 @@ foreach ($data_folder_paths as $data_folder_path) {
     accumulate_stop_times($stops, $stop_times_data);
 
     $dimensions = calculate_dimensions($stops);
+
+    write_data_json("{$data_folder_path}/data.json", $stops, $dimensions);
 
     $data[$year] = [
         'stops' => array_values($stops),
