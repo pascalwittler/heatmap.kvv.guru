@@ -52,6 +52,13 @@ function process_stops(array &$stops, array $stops_data)
     }
 }
 
+function accumulate_stop_times(array &$stops, $stop_times_data)
+{
+    foreach ($stop_times_data as $stop_time) {
+        $stops[cut_stop_id($stop_time['stop_id'])]['departures'] += 1;
+    }
+}
+
 $data_parent_folder_path = realpath(__DIR__ . '/../data') . '/';
 $data_folder_paths = array_filter(glob("{$data_parent_folder_path}/*"), 'is_dir');
 
@@ -65,6 +72,7 @@ foreach ($data_folder_paths as $data_folder_path) {
 
     $stops = [];
     process_stops($stops, $stops_data);
+    accumulate_stop_times($stops, $stop_times_data);
 
     $data[$year] = [
         'stops' => array_values($stops),
