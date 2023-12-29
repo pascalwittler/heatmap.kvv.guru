@@ -96,6 +96,11 @@ $data = [];
 foreach ($data_folder_paths as $data_folder_path) {
     $year = basename($data_folder_path);
 
+    if (file_exists("{$data_folder_path}/data.json")) {
+        $data[$year] = json_decode(file_get_contents("{$data_folder_path}/data.json"));
+        continue;
+    }
+
     $stops_data = get_csv_data("{$data_folder_path}/stops.txt");
     $stop_times_data = get_csv_data("{$data_folder_path}/stop_times.txt");
 
