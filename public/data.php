@@ -42,6 +42,9 @@ $data = [];
 foreach ($data_folder_paths as $data_folder_path) {
     $year = basename($data_folder_path);
 
+    $stops_data = get_csv_data("{$data_folder_path}/stops.txt");
+    $stop_times_data = get_csv_data("{$data_folder_path}/stop_times.txt");
+
     $data[$year] = [
         'stops' => [],
         'dimensions' => [],
