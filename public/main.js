@@ -13,6 +13,13 @@ async function getData() {
   return dataJson;
 }
 
+function drawStop(x, y, size, color = '#ffffff') {
+  context.beginPath();
+  context.arc(x * canvas.width, -(y * canvas.height), (20 * size + 1), 0, 2 * Math.PI);
+  context.fillStyle = color;
+  context.fill();
+}
+
 async function initialize() {
   const data = await getData();
 }
