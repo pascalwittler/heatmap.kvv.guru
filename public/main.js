@@ -1,16 +1,22 @@
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
-
-context.translate(0, canvas.height);
-
 async function getData() {
   const data = await fetch('data.php');
   const dataJson = data.json();
 
   return dataJson;
+}
+
+function resizeCanvas() {
+  canvas.removeAttribute('width');
+  canvas.removeAttribute('height');
+
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+
+  context.translate(0, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawStop(x, y, size, color = '#ffffff') {
@@ -21,6 +27,8 @@ function drawStop(x, y, size, color = '#ffffff') {
 }
 
 async function drawStops(stops, dimensions) {
+  resizeCanvas();
+
   const lonToX = (lon) => ((lon - dimensions.lon.min) / (dimensions.lon.max - dimensions.lon.min));
   const latToY = (lat) => ((lat - dimensions.lat.min) / (dimensions.lat.max - dimensions.lat.min));
   const frequency = (departures) => ((departures - dimensions.departures.min) / (dimensions.departures.max - dimensions.departures.min));
