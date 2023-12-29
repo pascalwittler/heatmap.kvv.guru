@@ -39,6 +39,19 @@ function get_csv_data(string $file_path): array
     return $csv_data;
 }
 
+function process_stops(array &$stops, array $stops_data)
+{
+    foreach ($stops_data as $stop) {
+        $stops[cut_stop_id($stop['stop_id'])] = [
+            'id'         => cut_stop_id($stop['stop_id']),
+            'name'       => $stop['stop_name'],
+            'lat'        => (float) $stop['stop_lat'],
+            'lon'        => (float) $stop['stop_lon'],
+            'departures' => 0,
+        ];
+    }
+}
+
 $data_parent_folder_path = realpath(__DIR__ . '/../data') . '/';
 $data_folder_paths = array_filter(glob("{$data_parent_folder_path}/*"), 'is_dir');
 
@@ -50,8 +63,11 @@ foreach ($data_folder_paths as $data_folder_path) {
     $stops_data = get_csv_data("{$data_folder_path}/stops.txt");
     $stop_times_data = get_csv_data("{$data_folder_path}/stop_times.txt");
 
+    $stops = [];
+    process_stops($stops, $stops_data);
+
     $data[$year] = [
-        'stops' => [],
+        'stops' => array_values($stops),
         'dimensions' => [],
     ];
 }
