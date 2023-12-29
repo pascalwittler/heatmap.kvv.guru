@@ -5,3 +5,16 @@ canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
 context.translate(0, canvas.height);
+
+async function getData() {
+  const data = await fetch('data.php');
+  const dataJson = data.json();
+
+  return dataJson;
+}
+
+async function initialize() {
+  const data = await getData();
+}
+
+initialize();
