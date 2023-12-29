@@ -1,5 +1,10 @@
 <?php
 
+function cut_stop_id(string $stop_id)
+{
+    return implode(':', array_slice(explode(':', $stop_id), 0, 3));
+}
+
 function yield_next_line($file_resource)
 {
     while (($line = fgets($file_resource)) !== false) {
