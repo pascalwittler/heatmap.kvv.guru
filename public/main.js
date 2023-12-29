@@ -43,6 +43,8 @@ async function initialize() {
   const stops = await data[Object.keys(data).sort().pop()].stops;
   const dimensions = await data[Object.keys(data).sort().pop()].dimensions;
 
+  (new ResizeObserver(() => drawStops(stops, dimensions))).observe(canvas);
+
   drawStops(stops, dimensions);
 }
 
