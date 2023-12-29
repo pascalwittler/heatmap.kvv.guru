@@ -15,6 +15,10 @@ function get_csv_data(string $file_path): array
     $csv_data = [];
 
     foreach (yield_next_line($csv_file_resource) as $line) {
+        if (empty($line)) {
+            continue;
+        }
+
         if (empty($keys)) {
             $keys = str_getcsv($line);
             continue;
