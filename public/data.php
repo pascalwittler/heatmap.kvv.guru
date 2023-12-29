@@ -39,6 +39,24 @@ function get_csv_data(string $file_path): array
     return $csv_data;
 }
 
+function calculate_dimensions(array $stops)
+{
+    return [
+        'lat' => [
+            'min' => min(array_column($stops, 'lat')),
+            'max' => max(array_column($stops, 'lat')),
+        ],
+        'lon' => [
+            'min' => min(array_column($stops, 'lon')),
+            'max' => max(array_column($stops, 'lon')),
+        ],
+        'departures' => [
+            'min' => min(array_column($stops, 'departures')),
+            'max' => max(array_column($stops, 'departures')),
+        ],
+    ];
+}
+
 function process_stops(array &$stops, array $stops_data)
 {
     foreach ($stops_data as $stop) {
@@ -74,9 +92,11 @@ foreach ($data_folder_paths as $data_folder_path) {
     process_stops($stops, $stops_data);
     accumulate_stop_times($stops, $stop_times_data);
 
+    $dimensions = calculate_dimensions($stops);
+
     $data[$year] = [
         'stops' => array_values($stops),
-        'dimensions' => [],
+        'dimensions' => $dimensions,
     ];
 }
 
