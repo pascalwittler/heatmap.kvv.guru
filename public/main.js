@@ -32,6 +32,10 @@ async function drawStops(stops, dimensions) {
 
 async function initialize() {
   const data = await getData();
+  const stops = await data[Object.keys(data).sort().pop()].stops;
+  const dimensions = await data[Object.keys(data).sort().pop()].dimensions;
+
+  drawStops(stops, dimensions);
 }
 
 initialize();
