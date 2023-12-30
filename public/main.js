@@ -6,6 +6,7 @@ let data, stops, dimensions;
 function addYearFilters(data) {
   const yearFiltersWrap = document.querySelector('.filter-years');
   const years = Object.keys(data).sort().reverse();
+  const latestYear = Object.keys(data).sort().pop();
 
   years.forEach((year) => {
     let radioButton = document.createElement('input');
@@ -14,6 +15,10 @@ function addYearFilters(data) {
     radioButton.name = 'year';
     radioButton.value = year;
     radioButton.id = `filter-year-${year}`;
+
+    if (year === latestYear) {
+      radioButton.checked = true;
+    }
 
     radioButton.addEventListener('click', () => {
       stops = data[year].stops;
