@@ -1,6 +1,8 @@
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
+let data, stops, dimensions;
+
 async function getData() {
   const data = await fetch('data.php');
   const dataJson = data.json();
@@ -39,9 +41,9 @@ async function drawStops(stops, dimensions) {
 }
 
 async function initialize() {
-  const data = await getData();
-  const stops = await data[Object.keys(data).sort().pop()].stops;
-  const dimensions = await data[Object.keys(data).sort().pop()].dimensions;
+  data = await getData();
+  stops = await data[Object.keys(data).sort().pop()].stops;
+  dimensions = await data[Object.keys(data).sort().pop()].dimensions;
 
   (new ResizeObserver(() => drawStops(stops, dimensions))).observe(canvas);
 
