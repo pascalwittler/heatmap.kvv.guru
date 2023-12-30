@@ -3,6 +3,29 @@ const context = canvas.getContext('2d');
 
 let data, stops, dimensions;
 
+function addYearFilters(data) {
+  const yearFiltersWrap = document.querySelector('.filter-years');
+  const years = Object.keys(data).sort().reverse();
+
+  years.forEach((year) => {
+    let radioButton = document.createElement('input');
+
+    radioButton.type = 'radio';
+    radioButton.name = 'year';
+    radioButton.value = year;
+    radioButton.id = `filter-year-${year}`;
+
+    radioButton.addEventListener('click', () => {
+      stops = data[year].stops;
+      dimensions = data[year].dimensions;
+
+      drawStops(stops, dimensions);
+    });
+
+    yearFiltersWrap.appendChild(radioButton);
+  });
+}
+
 async function getData() {
   const data = await fetch('data.php');
   const dataJson = data.json();
@@ -44,6 +67,8 @@ async function initialize() {
   data = await getData();
   stops = await data[Object.keys(data).sort().pop()].stops;
   dimensions = await data[Object.keys(data).sort().pop()].dimensions;
+
+  addYearFilters(data);
 
   (new ResizeObserver(() => drawStops(stops, dimensions))).observe(canvas);
 
