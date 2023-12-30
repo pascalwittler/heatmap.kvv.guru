@@ -22,7 +22,13 @@ function addYearFilters(data) {
       drawStops(stops, dimensions);
     });
 
+    let radioButtonLabel = document.createElement('label');
+
+    radioButtonLabel.htmlFor = `filter-year-${year}`;
+    radioButtonLabel.textContent = year;
+
     yearFiltersWrap.appendChild(radioButton);
+    yearFiltersWrap.appendChild(radioButtonLabel);
   });
 }
 
